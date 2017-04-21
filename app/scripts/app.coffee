@@ -76,7 +76,7 @@ class App
 
     $(".instructions-container, .instructions-button").on "click", @onClickInstructions
     @$reference.on "click", @onClickReference
-    @$finish.on "click", @onClickFinish
+    @$finish.on "click", @onClickDownload
     @$nameTag.on "click", => @getName true
 
     @getName()
@@ -90,7 +90,14 @@ class App
     editor.setHighlightActiveLine false
     editor.setFontSize 20
     editor.setTheme "ace/theme/vibrant_ink"
-    editor.getSession().setMode "ace/mode/html"
+    editor.getSession().setMode "ace/mode/javascript"
+    editor.setValue [
+        '// JavaScript'
+      , 'var a = 3;'
+      , ''
+      , '// below line has an error which is annotated'
+      , 'var b ='
+      ].join('\n')
     editor.session.setOption "useWorker", false
     editor.session.setFoldStyle "manual"
     editor.$blockScrolling = Infinity
@@ -246,15 +253,14 @@ class App
     @$reference.toggleClass "active"
     @editor.focus() unless @$reference.hasClass("active")
 
-  onClickFinish: =>
-    confirm = prompt "
-      This will show the results of your code. Doing this before the round is over
-      WILL DISQUALIFY YOU. Are you sure you want to proceed? Type \"yes\" to confirm.
-    "
+  onClickDownload: =>
+    $a = $("<a>")
+      .attr
+        download: 'design.html'
+        href: window.URL.createObjectURL(new Blob(['<script>' + @editor.getValue() + ';alert(square(4));' + '</script>'], {type: "text/txt"}))
+      .appendTo "body"
 
-    if confirm?.toLowerCase() is "yes"
-      @$result[0].contentWindow.postMessage(@editor.getValue(), "*")
-      @$result.show()
+    $a[0].click()
 
   onChange: (e) =>
     @debouncedSaveContent()
