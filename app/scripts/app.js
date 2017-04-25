@@ -20,6 +20,17 @@ require("brace/ext/searchbox");
 
 var question = require("../questions/hem");
 
+// Delete local storage if URL is not matching with previous url
+var currentURL = location.href;
+var previousURL = localStorage.getItem('previousURL');
+if(previousURL) {
+    previousURL = decodeURIComponent(previousURL);
+    if(previousURL !== currentURL) {
+        localStorage.removeItem('content');
+    }
+}
+localStorage.setItem('previousURL', encodeURIComponent(location.href));
+
 App = (function() {
     App.prototype.POWER_MODE_ACTIVATION_THRESHOLD = 200;
 
