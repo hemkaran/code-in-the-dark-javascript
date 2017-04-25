@@ -3,6 +3,6 @@
  */
 
 var question = {
-
+    asdfgh: 1
 };
 module.exports = question;

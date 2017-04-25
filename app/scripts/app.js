@@ -18,8 +18,7 @@ require("brace/theme/vibrant_ink");
 
 require("brace/ext/searchbox");
 
-var questions = require("./question");
-console.log(questions);
+var question = require("../questions/hem");
 
 App = (function() {
     App.prototype.POWER_MODE_ACTIVATION_THRESHOLD = 200;
@@ -129,10 +128,10 @@ App = (function() {
         editor.setHighlightActiveLine(false);
         editor.setFontSize(20);
         editor.setTheme("ace/theme/vibrant_ink");
-        editor.getSession().setMode("ace/mode/javascript");
-        editor.setValue(['var a = 6;', '', 'var b ='].join('\n'));
+        editor.getSession().setMode("ace/mode/" + question.type);
+        editor.setValue(question.statement);
         editor.clearSelection();
-        editor.gotoLine(3);
+        editor.moveCursorTo(question.editLine, 4);
         editor.session.setOption("useWorker", false);
         editor.session.setFoldStyle("manual");
         editor.$blockScrolling = Infinity;
@@ -335,7 +334,7 @@ App = (function() {
         var $a;
         $a = $("<a>").attr({
             download: 'design.html',
-            href: window.URL.createObjectURL(new Blob(['<script>' + this.editor.getValue() + ';alert(square(4));' + '</script>'], {
+            href: window.URL.createObjectURL(new Blob([question.prepend + this.editor.getValue() + question.append], {
                 type: "text/txt"
             }))
         }).appendTo("body");

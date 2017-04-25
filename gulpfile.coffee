@@ -130,7 +130,7 @@ gulp
     gulp
       .src "#{config.paths.tmp}/index.html"
       .pipe $.inlineSource()
-      .pipe rename(basename: "editor")
+      .pipe rename(basename: "index")
       .pipe gulp.dest("#{config.paths.dist}")
 
   .task "dist", ->
