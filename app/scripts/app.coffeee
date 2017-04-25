@@ -92,11 +92,9 @@ class App
     editor.setTheme "ace/theme/vibrant_ink"
     editor.getSession().setMode "ace/mode/javascript"
     editor.setValue [
-        '// JavaScript'
-      , 'var a = 3;'
-      , ''
-      , '// below line has an error which is annotated'
-      , 'var b ='
+      'var a = 3;',
+      '',
+      'var b ='
       ].join('\n')
     editor.session.setOption "useWorker", false
     editor.session.setFoldStyle "manual"
