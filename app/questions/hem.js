@@ -5,11 +5,13 @@
 var question = {
     statement: [
         '<!-- Print the star pattern given in the image -->',
-        '<s'+ 'cript>',
+        '<script',
+        '>',
         'function printStar() {',
         '',
         '}',
-        '<' + '/script>',
+        '<',
+        '/script>',
         '<body onload="printStar()">',
         '   <div id="star-pattern"></div>',
         '</body>'
