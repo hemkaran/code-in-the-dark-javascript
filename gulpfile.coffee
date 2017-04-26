@@ -119,7 +119,7 @@ gulp
       done()
 
   .task "build", (done) ->
-    webpackers.distribute.run (err, stats) ->
+    webpackers.development.run (err, stats) ->
       throw new $.util.PluginError("webpack:build", err) if err
       done()
 

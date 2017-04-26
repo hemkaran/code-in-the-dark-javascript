@@ -18,7 +18,7 @@ require("brace/theme/vibrant_ink");
 
 require("brace/ext/searchbox");
 
-var question = require("../questions/hem");
+var question = require("../questions/alpha");
 
 // Delete local storage if URL is not matching with previous url
 var currentURL = location.href;
