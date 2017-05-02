@@ -72,7 +72,7 @@ config =
       plugins: [
         new webpack.optimize.DedupePlugin()
         new webpack.optimize.UglifyJsPlugin(
-          compressor: { warnings: false }
+          compressor: false
         )
       ]
 
@@ -119,7 +119,7 @@ gulp
       done()
 
   .task "build", (done) ->
-    webpackers.distribute.run (err, stats) ->
+    webpackers.development.run (err, stats) ->
       throw new $.util.PluginError("webpack:build", err) if err
       done()
 
@@ -130,7 +130,7 @@ gulp
     gulp
       .src "#{config.paths.tmp}/index.html"
       .pipe $.inlineSource()
-      .pipe rename(basename: "editor")
+      .pipe rename(basename: "index")
       .pipe gulp.dest("#{config.paths.dist}")
 
   .task "dist", ->
